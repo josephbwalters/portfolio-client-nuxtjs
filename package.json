@@ -28,6 +28,7 @@
     "@nuxtjs/pwa": "^3.3.4",
     "@nuxtjs/vuetify": "^1.11.3",
     "core-js": "^3.8.2",
+    "lodash": "^4.17.20",
     "nuxt": "^2.14.12"
   },
   "devDependencies": {

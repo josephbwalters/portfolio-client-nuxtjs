@@ -15,9 +15,6 @@
           router
           exact
         >
-          <v-list-item-action>
-            <v-icon>{{ item.icon }}</v-icon>
-          </v-list-item-action>
           <v-list-item-content>
             <v-list-item-title v-text="item.title" />
           </v-list-item-content>
@@ -63,29 +60,46 @@
 </template>
 
 <script>
+import upperFirst from 'lodash/upperFirst'
+import camelCase from 'lodash/camelCase'
+import lowerCase from 'lodash/lowerCase'
+
 export default {
   data() {
     return {
       clipped: false,
       drawer: false,
       fixed: false,
-      items: [
-        {
-          icon: 'mdi-apps',
-          title: 'Welcome',
-          to: '/',
-        },
-        {
-          icon: 'mdi-chart-bubble',
-          title: 'Inspire',
-          to: '/inspire',
-        },
-      ],
+      items: [],
       miniVariant: false,
       right: true,
       rightDrawer: false,
       title: 'Vuetify.js',
     }
+  },
+  mounted() {
+    const requirePage = require.context('../pages', false, /.vue/)
+    requirePage.keys().forEach((filename) => {
+      const pageName = upperFirst(
+        camelCase(
+          filename
+            .split('/')
+            .pop()
+            .replace(/\.\w+$/, '')
+        )
+      )
+
+      // TODO: Add sequenceing to this
+      // This will go away when page mgmt is moved to the backend.
+      if (pageName === 'Index') {
+        this.items.push({ title: 'Home', to: '/' })
+      } else {
+        this.items.push({
+          title: pageName,
+          to: `/${lowerCase(pageName)}`,
+        })
+      }
+    })
   },
 }
 </script>
