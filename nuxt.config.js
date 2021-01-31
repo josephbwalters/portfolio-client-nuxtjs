@@ -1,11 +1,6 @@
 import colors from 'vuetify/es5/util/colors'
 
 export default {
-  // Server configs to specify port
-  server: {
-    port: 3001,
-  },
-
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     titleTemplate: '%s - portfolio-client',
